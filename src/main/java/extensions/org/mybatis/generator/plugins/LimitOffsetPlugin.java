@@ -141,4 +141,15 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
         return super.sqlMapDeleteByExampleElementGenerated(element, introspectedTable);
     }
+
+    @Override
+    public boolean sqlMapCountByExampleElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
+        XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
+        limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
+        limitIfElement.addElement(new TextElement("limit #{limit,jdbcType=BIGINT}"));
+        element.addElement(limitIfElement);
+
+        return super.sqlMapCountByExampleElementGenerated(element, introspectedTable);
+    }
 }

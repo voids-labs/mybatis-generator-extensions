@@ -22,10 +22,10 @@
         </license>
     </licenses>
 
-    <scm>
+    <scm><url>https://github.com/voids-labs/mybatis-generator-extensions</url>
         <connection>scm:git:git://github.com/voids-labs/mybatis-generator-extensions.git</connection>
         <developerConnection>scm:git:ssh://github.com/voids-labs/mybatis-generator-extensions.git</developerConnection>
-        <url>https://github.com/voids-labs/mybatis-generator-extensions/tree/main</url>
+        <tag>HEAD</tag>
     </scm>
 
 
@@ -37,6 +37,17 @@
             <organizationUrl>https://github.com/voids-labs</organizationUrl>
         </developer>
     </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -63,6 +74,7 @@
                 <configuration>
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
                 </configuration>
             </plugin>
 
@@ -71,7 +83,7 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -84,7 +96,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
