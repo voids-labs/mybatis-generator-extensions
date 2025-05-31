@@ -6,7 +6,7 @@
 
     <groupId>io.github.voids-labs</groupId>
     <artifactId>mybatis-generator-extensions</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>mybatis-generator-extensions</name>
@@ -25,7 +25,9 @@
     <scm><url>https://github.com/voids-labs/mybatis-generator-extensions</url>
         <connection>scm:git:git://github.com/voids-labs/mybatis-generator-extensions.git</connection>
         <developerConnection>scm:git:ssh://github.com/voids-labs/mybatis-generator-extensions.git</developerConnection>
+<!--
         <tag>HEAD</tag>
+-->
     </scm>
 
 

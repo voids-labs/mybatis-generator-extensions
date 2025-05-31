@@ -13,6 +13,8 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.internal.util.messages.Messages;
 
 import java.util.List;
+import java.util.Objects;
+
 
 public class ForUpdatePlugin extends PluginAdapter {
 
@@ -43,6 +45,14 @@ public class ForUpdatePlugin extends PluginAdapter {
         getForUpdate.setReturnType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
         getForUpdate.addBodyLine("return forUpdate;");
         topLevelClass.addMethod(getForUpdate);
+
+        topLevelClass.getMethods()
+                .stream()
+                .filter(e -> Objects.equals("clear", e.getName()))
+                .findAny().ifPresent(e -> {
+                    e.getBodyLines().add("forUpdate = false;");
+                });
+
 
         return super.modelExampleClassGenerated(topLevelClass, introspectedTable);
     }

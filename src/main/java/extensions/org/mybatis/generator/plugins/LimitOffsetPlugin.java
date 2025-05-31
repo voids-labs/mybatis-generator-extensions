@@ -14,6 +14,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.internal.util.messages.Messages;
 
 import java.util.List;
+import java.util.Objects;
 
 public class LimitOffsetPlugin extends PluginAdapter {
 
@@ -62,6 +63,15 @@ public class LimitOffsetPlugin extends PluginAdapter {
         getOffset.setReturnType(longType);
         getOffset.addBodyLine("return offset;");
         topLevelClass.addMethod(getOffset);
+
+        topLevelClass.getMethods()
+                .stream()
+                .filter(e -> Objects.equals("clear", e.getName()))
+                .findAny().ifPresent(e -> {
+                    e.getBodyLines().add("limit = null;");
+                    e.getBodyLines().add("offset = null;");
+                });
+
 
         return super.modelExampleClassGenerated(topLevelClass, introspectedTable);
     }
