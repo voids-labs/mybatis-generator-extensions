@@ -6,7 +6,7 @@
 
     <groupId>io.github.voids-labs</groupId>
     <artifactId>mybatis-generator-extensions</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>mybatis-generator-extensions</name>

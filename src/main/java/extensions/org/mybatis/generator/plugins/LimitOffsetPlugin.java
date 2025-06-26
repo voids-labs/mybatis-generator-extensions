@@ -30,6 +30,12 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
+
+
         FullyQualifiedJavaType longType = new FullyQualifiedJavaType(Long.class.getName());
 
         Field limit = new Field("limit", longType);
@@ -78,6 +84,11 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
+
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
         limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -94,6 +105,11 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
+
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
         limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -110,10 +126,14 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapUpdateByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
-        limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
-        limitIfElement.addElement(new TextElement("limit #{limit,jdbcType=BIGINT}"));
+        limitIfElement.addAttribute(new Attribute("test", "example.limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
+        limitIfElement.addElement(new TextElement("limit #{example.limit,jdbcType=BIGINT}"));
         element.addElement(limitIfElement);
 
         return super.sqlMapUpdateByExampleWithBLOBsElementGenerated(element, introspectedTable);
@@ -121,10 +141,14 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapUpdateByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
-        limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
-        limitIfElement.addElement(new TextElement("limit #{limit,jdbcType=BIGINT}"));
+        limitIfElement.addAttribute(new Attribute("test", "example.limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
+        limitIfElement.addElement(new TextElement("limit #{example.limit,jdbcType=BIGINT}"));
         element.addElement(limitIfElement);
 
         return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
@@ -132,10 +156,14 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapUpdateByExampleSelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
-        limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
-        limitIfElement.addElement(new TextElement("limit #{limit,jdbcType=BIGINT}"));
+        limitIfElement.addAttribute(new Attribute("test", "example.limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
+        limitIfElement.addElement(new TextElement("limit #{example.limit,jdbcType=BIGINT}"));
         element.addElement(limitIfElement);
 
         return super.sqlMapUpdateByExampleSelectiveElementGenerated(element, introspectedTable);
@@ -143,6 +171,11 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
+
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
         limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -154,6 +187,11 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapCountByExampleElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
+
 
         XmlElement limitIfElement = new XmlElement("if"); //$NON-NLS-1$
         limitIfElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$

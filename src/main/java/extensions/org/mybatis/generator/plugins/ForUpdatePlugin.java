@@ -30,12 +30,16 @@ public class ForUpdatePlugin extends PluginAdapter {
 
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("forUpdateEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         Field forUpdate = new Field("forUpdate", FullyQualifiedJavaType.getBooleanPrimitiveInstance());
         forUpdate.setVisibility(JavaVisibility.PROTECTED);
         topLevelClass.addField(forUpdate);
 
-        Method setForUpdate = new Method("forUpdate");
+        Method setForUpdate = new Method("setForUpdate");
         setForUpdate.setVisibility(JavaVisibility.PUBLIC);
         setForUpdate.addBodyLine("this.forUpdate = true;");
         topLevelClass.addMethod(setForUpdate);
@@ -45,6 +49,17 @@ public class ForUpdatePlugin extends PluginAdapter {
         getForUpdate.setReturnType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
         getForUpdate.addBodyLine("return forUpdate;");
         topLevelClass.addMethod(getForUpdate);
+
+        Method isForUpdate = new Method("isForUpdate");
+        getForUpdate.setVisibility(JavaVisibility.PUBLIC);
+        getForUpdate.setReturnType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
+        getForUpdate.addBodyLine("return forUpdate;");
+        topLevelClass.addMethod(isForUpdate);
+
+        Method method = new Method("forUpdate");
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.addBodyLine("return this.forUpdate = true;");
+        topLevelClass.addMethod(method);
 
         topLevelClass.getMethods()
                 .stream()
@@ -59,6 +74,10 @@ public class ForUpdatePlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("forUpdateEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement ifElement = new XmlElement("if"); //$NON-NLS-1$
         ifElement.addAttribute(new Attribute("test", "forUpdate")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -70,6 +89,10 @@ public class ForUpdatePlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectAllElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("forUpdateEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement ifElement = new XmlElement("if"); //$NON-NLS-1$
         ifElement.addAttribute(new Attribute("test", "forUpdate")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -81,6 +104,10 @@ public class ForUpdatePlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectByPrimaryKeyElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("forUpdateEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement ifElement = new XmlElement("if"); //$NON-NLS-1$
         ifElement.addAttribute(new Attribute("test", "forUpdate")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -92,6 +119,10 @@ public class ForUpdatePlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        Object enabled = introspectedTable.getTableConfiguration().getProperty("forUpdateEnabled");
+        if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
+            return true;
+        }
 
         XmlElement ifElement = new XmlElement("if"); //$NON-NLS-1$
         ifElement.addAttribute(new Attribute("test", "forUpdate")); //$NON-NLS-1$ //$NON-NLS-2$
