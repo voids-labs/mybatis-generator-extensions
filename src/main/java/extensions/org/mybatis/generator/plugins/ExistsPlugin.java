@@ -43,7 +43,7 @@ public class ExistsPlugin extends PluginAdapter {
 
         Method method = new Method("existsByExample");
         method.addParameter(new Parameter(new FullyQualifiedJavaType(introspectedTable.getExampleType()), "example"));
-        method.setReturnType(FullyQualifiedJavaType.getNewArrayListInstance());
+        method.setReturnType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         interfaze.addMethod(method);

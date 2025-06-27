@@ -96,6 +96,7 @@ public class ForUpdatePlugin extends PluginAdapter {
         return super.sqlMapSelectByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
     }
 
+
     @Override
     public boolean sqlMapSelectByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
         Object enabled = introspectedTable.getTableConfiguration().getProperty("forUpdateEnabled");
