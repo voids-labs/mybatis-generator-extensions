@@ -43,6 +43,8 @@ public class ExistsPlugin extends PluginAdapter {
 
         Method method = new Method("existsByExample");
         method.addParameter(new Parameter(new FullyQualifiedJavaType(introspectedTable.getExampleType()), "example"));
+        method.setReturnType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         interfaze.addMethod(method);
 
@@ -89,7 +91,7 @@ public class ExistsPlugin extends PluginAdapter {
             answer.addAttribute(new Attribute(
                     "id", "existsByExample")); //$NON-NLS-1$
             answer.addAttribute(new Attribute("parameterType", fqjt)); //$NON-NLS-1$
-            answer.addAttribute(new Attribute("resultType", "java.lang.Long")); //$NON-NLS-1$ //$NON-NLS-2$
+            answer.addAttribute(new Attribute("resultType", "boolean")); //$NON-NLS-1$ //$NON-NLS-2$
 
             context.getCommentGenerator().addComment(answer);
 
@@ -109,6 +111,5 @@ public class ExistsPlugin extends PluginAdapter {
 
         }
     }
-
 
 }

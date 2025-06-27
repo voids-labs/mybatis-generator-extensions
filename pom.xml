@@ -7,6 +7,9 @@
     <groupId>io.github.voids-labs</groupId>
     <artifactId>mybatis-generator-extensions</artifactId>
     <version>1.0.3</version>
+<!--
+    <version>1.0.3-SNAPSHOT</version>
+-->
     <packaging>jar</packaging>
 
     <name>mybatis-generator-extensions</name>
@@ -22,12 +25,11 @@
         </license>
     </licenses>
 
-    <scm><url>https://github.com/voids-labs/mybatis-generator-extensions</url>
+    <scm>
+        <url>https://github.com/voids-labs/mybatis-generator-extensions</url>
         <connection>scm:git:git://github.com/voids-labs/mybatis-generator-extensions.git</connection>
         <developerConnection>scm:git:ssh://github.com/voids-labs/mybatis-generator-extensions.git</developerConnection>
-<!--
         <tag>HEAD</tag>
--->
     </scm>
 
 
@@ -119,6 +121,14 @@
                     </execution>
                 </executions>
             </plugin>
+
+<!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+-->
 
         </plugins>
     </build>

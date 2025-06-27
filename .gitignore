@@ -41,4 +41,4 @@ build/
 
 ### Logs ###
 .log
-pushed.sh
+release.properties
