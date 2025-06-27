@@ -22,12 +22,11 @@
         </license>
     </licenses>
 
-    <scm><url>https://github.com/voids-labs/mybatis-generator-extensions</url>
+    <scm>
+        <url>https://github.com/voids-labs/mybatis-generator-extensions</url>
         <connection>scm:git:git://github.com/voids-labs/mybatis-generator-extensions.git</connection>
         <developerConnection>scm:git:ssh://github.com/voids-labs/mybatis-generator-extensions.git</developerConnection>
-<!--
         <tag>HEAD</tag>
--->
     </scm>
 
 
