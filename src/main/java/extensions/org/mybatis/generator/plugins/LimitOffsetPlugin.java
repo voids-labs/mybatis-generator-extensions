@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class LimitOffsetPlugin extends PluginAdapter {
 
-
     @Override
     public boolean validate(List<String> warnings) {
         if ("MyBatis3DynamicSql".equalsIgnoreCase(context.getTargetRuntime())) { //$NON-NLS-1$
@@ -28,13 +27,13 @@ public class LimitOffsetPlugin extends PluginAdapter {
         return true;
     }
 
+
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
         }
-
 
         FullyQualifiedJavaType longType = new FullyQualifiedJavaType(Long.class.getName());
 
@@ -79,17 +78,18 @@ public class LimitOffsetPlugin extends PluginAdapter {
         topLevelClass.getMethods()
                 .stream()
                 .filter(e -> Objects.equals("clear", e.getName()))
-                .findAny().ifPresent(e -> {
+                .findAny()
+                .ifPresent(e -> {
                     e.getBodyLines().add("limit = null;");
                     e.getBodyLines().add("offset = null;");
                 });
-
 
         return super.modelExampleClassGenerated(topLevelClass, introspectedTable);
     }
 
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
@@ -111,6 +111,7 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapSelectByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
@@ -126,11 +127,12 @@ public class LimitOffsetPlugin extends PluginAdapter {
         ifElement.addElement(new TextElement("offset #{offset,jdbcType=BIGINT}"));
         element.addElement(ifElement);
 
-        return super.sqlMapSelectByExampleWithBLOBsElementGenerated(element, introspectedTable);
+      return super.sqlMapSelectByExampleWithBLOBsElementGenerated(element, introspectedTable);
     }
 
     @Override
     public boolean sqlMapUpdateByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
@@ -146,6 +148,7 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapUpdateByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
@@ -161,6 +164,7 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapUpdateByExampleSelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
@@ -176,14 +180,15 @@ public class LimitOffsetPlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+
         Object enabled = introspectedTable.getTableConfiguration().getProperty("limitOffsetEnabled");
         if (Objects.nonNull(enabled) && !Boolean.parseBoolean(enabled.toString())) {
             return true;
         }
 
         XmlElement xmlElement = new XmlElement("if"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("test", "example.limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
-        xmlElement.addElement(new TextElement("limit #{example.limit,jdbcType=BIGINT}"));
+        xmlElement.addAttribute(new Attribute("test", "limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
+        xmlElement.addElement(new TextElement("limit #{limit,jdbcType=BIGINT}"));
         element.addElement(xmlElement);
 
         return super.sqlMapDeleteByExampleElementGenerated(element, introspectedTable);

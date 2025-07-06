@@ -41,9 +41,15 @@ public class ForUpdatePlugin extends PluginAdapter {
         topLevelClass.addField(field);
         context.getCommentGenerator().addFieldComment(field, introspectedTable);
 
-        Method method = new Method("setForUpdate");
+        Method method = new Method("forUpdate");
         method.setVisibility(JavaVisibility.PUBLIC);
+        method.addBodyLine("this.forUpdate = true;");
+        topLevelClass.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+
+        method = new Method("setForUpdate");
         method.addParameter(new Parameter(FullyQualifiedJavaType.getBooleanPrimitiveInstance(), "forUpdate"));
+        method.setVisibility(JavaVisibility.PUBLIC);
         method.addBodyLine("this.forUpdate = forUpdate;");
         topLevelClass.addMethod(method);
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
@@ -62,16 +68,12 @@ public class ForUpdatePlugin extends PluginAdapter {
         topLevelClass.addMethod(method);
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
-        method = new Method("forUpdate");
-        method.setVisibility(JavaVisibility.PUBLIC);
-        method.addBodyLine("return this.forUpdate = true;");
-        topLevelClass.addMethod(method);
-        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         topLevelClass.getMethods()
                 .stream()
                 .filter(e -> Objects.equals("clear", e.getName()))
-                .findAny().ifPresent(e -> {
+                .findAny()
+                .ifPresent(e -> {
                     e.getBodyLines().add("forUpdate = false;");
                 });
 
