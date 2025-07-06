@@ -101,12 +101,7 @@ public class ExistsPlugin extends PluginAdapter {
             answer.addElement(new TextElement(sb.toString()));
             answer.addElement(getExampleIncludeElement());
 
-            XmlElement ifElement = new XmlElement("if");
-            ifElement.addAttribute(new Attribute("test", "limit != null"));
-            ifElement.addElement(new TextElement("limit ${limit,jdbcType=BIGINT}"));
-
-            answer.addElement(ifElement);
-
+            answer.addElement(new TextElement("limit 1"));
             parentElement.addElement(answer);
 
         }
